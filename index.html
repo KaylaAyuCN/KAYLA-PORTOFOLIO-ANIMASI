@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>CodePen - A Pen by Kayla Ayu Cahya Ningrum</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayla Ayu Cahya Ningrum - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #031530;
+            --card-bg: rgba(14, 38, 74, 0.6);
+            --card-hover: rgba(22, 58, 111, 0.85);
+            --accent-blue: #4a90e2;
+            --accent-light: #89b4f7;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --border-glow: rgba(74, 144, 226, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #031124, #0a254a, #0d3875, #031124);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .header {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(137, 180, 247, 0.3);
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-line {
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-blue);
+            margin-top: 15px;
+            border-radius: 2px;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px var(--accent-blue); opacity: 0.7; }
+            50% { box-shadow: 0 0 15px var(--accent-light); opacity: 1; }
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        @media (min-width: 900px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr 1.2fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-main);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 6s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .column:first-child .nav-button:nth-child(2)::after { animation-delay: 1.5s; }
+        .column:first-child .nav-button:nth-child(3)::after { animation-delay: 3s; }
+        .column:last-child .nav-button:nth-child(1)::after { animation-delay: 1s; }
+        .column:last-child .nav-button:nth-child(2)::after { animation-delay: 2.5s; }
+        .column:last-child .nav-button:nth-child(3)::after { animation-delay: 4s; }
+
+        .nav-button:hover {
+            background: var(--card-hover);
+            transform: translateY(-4px);
+            border-color: var(--accent-light);
+            box-shadow: 0 0 20px var(--border-glow);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            width: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button:hover .nav-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .nav-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .arrow {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button:hover .arrow {
+            transform: translateX(5px);
+            color: var(--text-main);
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            aspect-ratio: 4 / 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            animation: floatProfile 5s ease-in-out infinite;
+        }
+
+        @keyframes floatProfile {
+            0%, 100% { transform: translateY(0); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); }
+            50% { transform: translateY(-8px); box-shadow: 0 25px 45px rgba(74, 144, 226, 0.2); }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.95;
+            transition: scale 0.5s ease;
+        }
+
+        .profile-card:hover .profile-image {
+            scale: 1.05;
+        }
+
+        .profile-fallback {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-fallback i {
+            font-size: 4rem;
+            color: var(--accent-light);
+        }
+
+        .social-footer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .social-footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            width: 100px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon {
+            color: var(--text-muted);
+            font-size: 1.6rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: var(--accent-light);
+            transform: translateY(-5px) scale(1.2);
+            text-shadow: 0 0 10px rgba(137, 180, 247, 0.5);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 17, 36, 0.85);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ff5b5b;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-body {
+            line-height: 1.7;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-list li i {
+            color: var(--accent-blue);
+            margin-top: 5px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .info-list li a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-list li a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(74, 144, 226, 0.2);
+            border: 1px solid rgba(74, 144, 226, 0.4);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #d1e2ff;
+        }
+
+        .edu-item {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .edu-item h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .edu-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>Kayla Ayu Cahya Ningrum</h1>
+            <p>Mahasiswa Sistem Informasi</p>
+            <div class="header-line"></div>
+        </header>
+
+        <main class="portfolio-grid">
+            <div class="column">
+                <div class="nav-button" onclick="openModal('tentang-saya')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-user"></i></div>
+                        <span class="nav-text">Tentang Saya</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+
+                <div class="nav-button" onclick="openModal('kegiatan')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                        <span class="nav-text">Kegiatan</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+
+                <div class="nav-button" onclick="openModal('pendidikan')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <span class="nav-text">Pendidikan</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="image_b11b33.jpg" alt="Kayla Ayu Cahya Ningrum" class="profile-image" onerror="this.style.display='none'">
+                <div class="profile-fallback">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <div>
+                        <h3 style="color:#fff; margin-bottom: 5px;">Kayla Ayu Cahya Ningrum</h3>
+                        <p style="font-size:0.8rem;">Mahasiswa Sistem Informasi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="nav-button" onclick="openModal('keahlian')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-code"></i></div>
+                        <span class="nav-text">Keahlian</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+
+                <div class="nav-button" onclick="openModal('projek')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                        <span class="nav-text">Projek</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+
+                <div class="nav-button" onclick="openModal('kontak')">
+                    <div class="nav-content">
+                        <div class="nav-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <span class="nav-text">Kontak</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+            </div>
+        </main>
+
+        <footer class="social-footer">
+            <a href="https://wa.me/6285713409052" target="_blank" class="social-icon" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/kayla.aycn?igsh=MXdxOGRxOTNtNDBheQ==" target="_blank" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:kaylaayucn07@gmail.com" class="social-icon" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </footer>
+    </div>
+
+    <div id="tentang-saya" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('tentang-saya')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-user"></i> Tentang Saya</div>
+            <div class="modal-body">
+                <p>Saya lulusan SMK Komputama Majenang jurusan Pemasaran (Lulus 2025). Saat ini saya sedang melanjutkan pendidikan di jurusan Sistem Informasi Universitas Komputama untuk memperdalam kemampuan di bidang teknologi seperti pemrograman, analisis sistem, dan pengolahan data. Kombinasi ilmu pemasaran dan teknologi ini menjadi dasar bagi saya untuk mengembangkan minat di bidang digital marketing</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="kegiatan" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('kegiatan')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-calendar-days"></i> Kegiatan</div>
+            <div class="modal-body">
+                <ul class="info-list">
+                    <li><i class="fa-solid fa-circle-check"></i> <span>Mengoperasikan aplikasi kasir</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span>Aktif mengikuti perkuliahan Sistem Informasi</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span>Belajar digital marketing dan SEO</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span>Lomba Badminton</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span>Seminar</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="pendidikan" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('pendidikan')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</div>
+            <div class="modal-body">
+                <div class="edu-item">
+                    <h4>UNIVERSITAS KOMPUTAMA</h4>
+                    <p>Sistem Informasi (Sedang Berjalan)</p>
+                </div>
+                <div class="edu-item">
+                    <h4>SMK KOMPUTAMA MAJENANG</h4>
+                    <p>Jurusan Pemasaran (Lulus 2025)</p>
+                </div>
+                <div class="edu-item">
+                    <h4>SMP PGRI 3 CARUY</h4>
+                    <p>Pendidikan Sekolah Menengah Pertama</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="keahlian" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('keahlian')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-code"></i> Keahlian</div>
+            <div class="modal-body">
+                <div class="badge-container">
+                    <span class="badge">Microsoft Office</span>
+                    <span class="badge">Digital Marketing</span>
+                    <span class="badge">SEO</span>
+                    <span class="badge">Figma</span>
+                    <span class="badge">Aplikasi Kasir</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projek" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('projek')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-diagram-project"></i> Projek</div>
+            <div class="modal-body">
+                <ul class="info-list">
+                    <li><i class="fa-solid fa-wand-magic-sparkles"></i> <span><strong>Desain UI di Figma</strong> - Membuat perancangan antarmuka pengguna yang modern, user-friendly, dan responsif.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="kontak" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('kontak')">&times;</span>
+            <div class="modal-title"><i class="fa-solid fa-envelope"></i> Hubungi Saya</div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px;">Silakan hubungi saya melalui detail kontak di bawah ini:</p>
+                <ul class="info-list">
+                    <li><i class="fa-solid fa-phone"></i> <span>WhatsApp/No. HP: <a href="https://wa.me/6285713409052" target="_blank">085713409052</a></span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span>Email: <a href="mailto:kaylaayucn07@gmail.com">kaylaayucn07@gmail.com</a></span></li>
+                    <li><i class="fa-brands fa-instagram"></i> <span>Instagram: <a href="https://www.instagram.com/kayla.aycn?igsh=MXdxOGRxOTNtNDBheQ==" target="_blank">@kayla.aycn</a></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
