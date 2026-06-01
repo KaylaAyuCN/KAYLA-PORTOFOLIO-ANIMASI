@@ -61,7 +61,6 @@
             padding-left: 20px;
         }
 
-        /* 1. PERBAIKAN HEADER: MELUNCUR LEBIH LAMBAT & SANTAI */
         .header h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
@@ -70,11 +69,9 @@
             margin-bottom: 5px;
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(137, 180, 247, 0.3);
-            
             display: block; 
             opacity: 0;
             transform: translateX(-60px);
-            /* Durasi diperlambat menjadi 2.2 detik agar meluncur santai */
             animation: slideInHeaderSlow 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
@@ -84,11 +81,9 @@
             letter-spacing: 3px;
             color: var(--text-muted);
             font-weight: 500;
-            
             display: block;
             opacity: 0;
             transform: translateX(-40px);
-            /* Durasi diperlambat menjadi 2.2 detik dengan jeda */
             animation: slideInHeaderSlow 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
             animation-delay: 0.4s;
         }
@@ -177,14 +172,11 @@
             box-shadow: 0 0 25px var(--border-glow);
         }
 
-        /* 2. PERBAIKAN GERAKAN: ISI DAN ELEMEN TOMBOL BERGERAK BENER-BENER AKTIF (BUKAN ATAS BAWAH HALUS) */
         .nav-content {
             display: flex;
             align-items: center;
             gap: 22px;
             width: 100%;
-            
-            /* Seluruh konten (Ikon + Tulisan) dianimasikan bergerak aktif goyang kanan-kiri */
             animation: beneranGerak 3.5s ease-in-out infinite;
         }
 
@@ -203,7 +195,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Panah sebelah kanan juga ikut bergerak aktif sinkron dengan teks */
         .arrow {
             font-size: 1rem;
             color: var(--text-muted);
@@ -211,26 +202,19 @@
             animation: beneranGerak 3.5s ease-in-out infinite;
         }
 
-        /* Variasi jeda animasi tiap tombol agar tidak bergerak serempak kaku */
         .column:nth-child(1) .nav-button:nth-child(1) .nav-content,
         .column:nth-child(1) .nav-button:nth-child(1) .arrow { animation-delay: 0s; }
-        
         .column:nth-child(1) .nav-button:nth-child(2) .nav-content,
         .column:nth-child(1) .nav-button:nth-child(2) .arrow { animation-delay: 0.5s; }
-        
         .column:nth-child(1) .nav-button:nth-child(3) .nav-content,
         .column:nth-child(1) .nav-button:nth-child(3) .arrow { animation-delay: 1s; }
-        
         .column:nth-child(3) .nav-button:nth-child(1) .nav-content,
         .column:nth-child(3) .nav-button:nth-child(1) .arrow { animation-delay: 1.5s; }
-        
         .column:nth-child(3) .nav-button:nth-child(2) .nav-content,
         .column:nth-child(3) .nav-button:nth-child(2) .arrow { animation-delay: 2s; }
-        
         .column:nth-child(3) .nav-button:nth-child(3) .nav-content,
         .column:nth-child(3) .nav-button:nth-child(3) .arrow { animation-delay: 2.5s; }
 
-        /* Keyframe gerakan mantap bergoyang aktif kanan-kiri (bukan cuma mengapung halus) */
         @keyframes beneranGerak {
             0%, 100% { transform: translateX(0) scale(1); }
             20% { transform: translateX(-6px) scale(0.98); color: var(--accent-light); }
@@ -313,7 +297,6 @@
             text-shadow: 0 0 10px rgba(137, 180, 247, 0.5);
         }
 
-        /* --- STYLING MODAL (DALAMNYA TETAP DIAM DAN RAPI) --- */
         .modal {
             position: fixed;
             top: 0;
@@ -445,6 +428,63 @@
         .edu-item p {
             color: var(--text-muted);
             font-size: 0.9rem;
+        }
+
+        /* STYLING KARTU PROJEK (2 BLOK SANGAT RAPI) */
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: rgba(74, 144, 226, 0.05);
+            border-color: rgba(74, 144, 226, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .btn-demo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #4a90e2, #2c5364);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 5px;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(137, 180, 247, 0.4);
+            color: #ffffff;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -585,14 +625,42 @@
         </div>
     </div>
 
+    <!-- 🌟 MODAL PROJEK: SEKARANG TERPISAH MENJADI 2 BLOK KOTAK EKSKLUSIF 🌟 -->
     <div id="projek" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('projek')">&times;</span>
-            <div class="modal-title"><i class="fa-solid fa-diagram-project"></i> Projek</div>
-            <div class="modal-body">
-                <ul class="info-list">
-                    <li><i class="fa-solid fa-wand-magic-sparkles"></i> <span><strong>Desain UI di Figma</strong> - Membuat perancangan antarmuka pengguna yang modern, user-friendly, dan responsif.</span></li>
-                </ul>
+            <div class="modal-title"><i class="fa-solid fa-diagram-project"></i> Projek Saya</div>
+            <div class="modal-body" style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- PROJEK 1: FIGMA -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">🎨 Desain UI/UX di Figma</span>
+                    </div>
+                    <p class="project-desc">Perancangan antarmuka pengguna (User Interface) yang modern, intuitif, dan responsif. Berfokus pada pengalaman pengguna (User Experience) yang optimal serta keselarasan estetika visual.</p>
+                    <div class="badge-container" style="margin-top: 0;">
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">Figma</span>
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">UI/UX Design</span>
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">Wireframing</span>
+                    </div>
+                </div>
+
+                <!-- PROJEK 2: TABUNGANKU -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">💰 TabunganKu - E-Wallet & Celengan Digital</span>
+                    </div>
+                    <p class="project-desc">Aplikasi pencatatan keuangan pribadi berbasis web interaktif. Dilengkapi fitur manajemen riwayat transaksi dinamis (setor/tarik), kalkulasi otomatis limit saldo, pemformatan Rupiah otomatis, serta komponen pop-up struk transaksi real-time yang modern.</p>
+                    <div class="badge-container" style="margin-top: 0; margin-bottom: 15px;">
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">HTML5</span>
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">CSS3 Custom SVG</span>
+                        <span class="badge" style="font-size: 0.75rem; padding: 4px 10px;">Vanilla JavaScript</span>
+                    </div>
+                    <a href="TabunganKu.html" target="_blank" class="btn-demo">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Aplikasi Demo
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
