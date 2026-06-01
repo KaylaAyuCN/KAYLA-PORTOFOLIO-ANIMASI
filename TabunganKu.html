@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabunganKu - Celengan Digital Premium</title>
+    <style>
+        /* Ambil Font Premium dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --card-gradient: linear-gradient(180deg, #ffffff, #f9fbfd);
+            --success-color: #00bfa5; /* Hijau Toska khas DANA/fintech modern */
+            --danger-color: #e74c3c;
+            --primary-blue: #3498db;
+            --bg-color: #eef2f7;
+            --text-color: #2c3e50;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 20px rgba(44, 83, 100, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 410px;
+            background: var(--bg-color);
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 80px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        header h1 {
+            background: linear-gradient(135deg, #203a43, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 11px;
+            color: #95a5a6;
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .saldo-box {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .saldo-box::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -30px;
+            right: -30px;
+        }
+
+        .saldo-box p {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        .saldo-box .nominal {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-content {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        .form-group select, .input-rp-container input {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background-color: #ffffff;
+            transition: all 0.3s;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group select:focus, .input-rp-container input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+
+        .input-rp-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .input-rp-container::before {
+            content: "Rp";
+            position: absolute;
+            left: 14px;
+            font-weight: 700;
+            color: #7f8c8d;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .input-rp-container input {
+            padding-left: 42px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #203a43, #2c5364);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(32, 58, 67, 0.3);
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(32, 58, 67, 0.4);
+        }
+
+        .riwayat-list {
+            margin-top: 5px;
+        }
+
+        .riwayat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--primary-blue);
+            transition: transform 0.2s;
+        }
+
+        .riwayat-item:hover {
+            transform: scale(1.01);
+        }
+
+        .riwayat-item.setor { border-left-color: var(--success-color); }
+        .riwayat-item.tarik { border-left-color: var(--danger-color); }
+
+        .txt-masuk { color: var(--success-color); font-weight: 700; }
+        .txt-keluar { color: var(--danger-color); font-weight: 700; }
+
+        .item-info strong {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .item-info small {
+            color: #95a5a6;
+            font-size: 11px;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 370px;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: #a4b0be;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-item.active {
+            color: #203a43;
+            background: rgba(44, 83, 100, 0.05);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 3px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item.active .nav-icon {
+            transform: scale(1.15);
+        }
+
+        /* 🟢 CSS UNTUK POP-UP BERHASIL PREMIUM 🟢 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 32, 39, 0.5);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .receipt-card {
+            background: white;
+            width: 88%;
+            max-width: 340px;
+            border-radius: 28px;
+            padding: 35px 22px 25px 22px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(15, 32, 39, 0.2);
+            position: relative;
+            animation: slideUpReceipt 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+        }
+
+        @keyframes slideUpReceipt {
+            from { transform: translateY(60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Desain Lingkaran Ikon Sukses Baru */
+        .success-icon-box {
+            width: 74px;
+            height: 74px;
+            background: #e8f8f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px auto;
+            box-shadow: 0 8px 20px rgba(0, 191, 165, 0.15);
+            position: relative;
+        }
+
+        /* Desain Centang SVG Premium (Tebal, Panjang Melengkung Estetik ala DANA) */
+        .success-icon-box::after {
+            content: "";
+            display: inline-block;
+            width: 15px;
+            height: 27px;
+            border: solid var(--success-color);
+            border-width: 0 4.5px 4.5px 0; /* Ketebalan garis centang premium */
+            transform: rotate(45deg);
+            margin-top: -5px;
+            border-radius: 2.5px; /* Ujung membulat rapi */
+            animation: checkAnim 0.4s ease-in-out forwards;
+        }
+
+        @keyframes checkAnim {
+            from { transform: scale(0) rotate(45deg); opacity: 0; }
+            to { transform: scale(1) rotate(45deg); opacity: 1; }
+        }
+
+        .receipt-card h2 {
+            font-size: 22px;
+            color: var(--success-color);
+            margin-bottom: 4px;
+            font-weight: 800; /* Font Super Tebal */
+            letter-spacing: -0.5px;
+        }
+
+        .receipt-card .receipt-type {
+            font-size: 11px;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 22px;
+            font-weight: 700;
+        }
+
+        .receipt-details {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 25px;
+            text-align: left;
+            border: 1.5px dashed #e2e8f0;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .receipt-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .receipt-row .label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .receipt-row .value {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .btn-close-modal {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #203a43, #2c5364);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(32, 58, 67, 0.25);
+            transition: all 0.3s;
+        }
+
+        .btn-close-modal:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 22px rgba(32, 58, 67, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <header>
+            <h1>TabunganKu</h1>
+            <p>Smart & Modern Digital Wallet</p>
+        </header>
+
+        <div class="saldo-box">
+            <p>Total Saldo Tabungan</p>
+            <div class="nominal" id="saldo-display">Rp 0</div>
+        </div>
+
+        <!-- ================= HALAMAN 1: TRANSAKSI ================= -->
+        <div id="page-transaksi" class="page-content active">
+            <div class="card">
+                <div class="form-group">
+                    <label for="transaksi-jenis">Jenis Transaksi</label>
+                    <select id="transaksi-jenis">
+                        <option value="setor">Setor Uang (Menabung)</option>
+                        <option value="tarik">Tarik Uang (Mengambil)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaksi-ket">Keterangan / Keperluan</label>
+                    <select id="transaksi-ket">
+                        <option value="Uang Saku / Jajan">Uang Saku / Jajan</option>
+                        <option value="Sisa Uang Kembalian">Sisa Uang Kembalian</option>
+                        <option value="Hadiah / Bonus Tunai">Hadiah / Bonus Tunai</option>
+                        <option value="Keperluan Belanja">Keperluan Belanja</option>
+                        <option value="Dana Darurat">Dana Darurat</option>
+                        <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaksi-jumlah">Jumlah Nominal Uang</label>
+                    <div class="input-rp-container">
+                        <input type="text" id="transaksi-jumlah" placeholder="0" oninput="formatInputRupiah(this)">
+                    </div>
+                </div>
+
+                <button class="btn-submit" onclick="prosesTransaksi()">Proses Transaksi</button>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN 2: RIWAYAT ================= -->
+        <div id="page-riwayat" class="page-content">
+            <h3 style="font-size: 15px; margin-bottom: 15px; padding-left: 5px; font-weight: 700; color: #34495e;">Buku Catatan Transaksi</h3>
+            <div class="riwayat-list" id="riwayat-list">
+                <div style="text-align: center; color: #b2bec3; padding: 50px 20px; font-size: 13px; background: white; border-radius: 20px; box-shadow: var(--shadow-sm);">
+                    <div style="font-size: 30px; margin-bottom: 10px;">📖</div>
+                    Belum ada riwayat aktivitas keuangan.
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU NAVIGASI BAWAH -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchPage('transaksi', this)">
+                <div class="nav-icon">💳</div>
+                <span>Transaksi</span>
+            </button>
+            <button class="nav-item" onclick="switchPage('riwayat', this)">
+                <div class="nav-icon">📊</div>
+                <span>Riwayat</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 🟢 KODE POP-UP RESI STRUK SUKSES PREMIUM (CENTANG SVG) 🟢 -->
+    <div class="modal-overlay" id="receipt-modal">
+        <div class="receipt-card">
+            <!-- Di-kosongkan karena centang tebal digambar otomatis via CSS ::after -->
+            <div class="success-icon-box"></div>
+            <h2>Transaksi Berhasil</h2>
+            <div class="receipt-type" id="r-type-text">SETOR TUNAI</div>
+            
+            <div class="receipt-details">
+                <div class="receipt-row">
+                    <span class="label">Keterangan:</span>
+                    <span class="value" id="r-keterangan">-</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="label">Nominal:</span>
+                    <span class="value" id="r-nominal">Rp 0</span>
+                </div>
+                <div class="receipt-row">
+                    <span class="label">Waktu:</span>
+                    <span class="value" id="r-waktu">-</span>
+                </div>
+            </div>
+
+            <button class="btn-close-modal" onclick="closeReceiptModal()">Selesai</button>
+        </div>
+    </div>
+
+    <script>
+        let totalSaldo = 0;
+        let bukuTabungan = [];
+
+        function formatRupiah(angka) {
+            return "Rp " + angka.toLocaleString('id-ID');
+        }
+
+        function formatInputRupiah(input) {
+            let value = input.value.replace(/[^0-9]/g, "");
+            if (value === "") {
+                input.value = "";
+                return;
+            }
+            let formatted = parseFloat(value).toLocaleString('id-ID');
+            input.value = formatted;
+        }
+
+        function switchPage(pageId, element) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active'));
+
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            document.getElementById('page-' + pageId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function prosesTransaksi() {
+            const jenis = document.getElementById('transaksi-jenis').value;
+            const ket = document.getElementById('transaksi-ket').value;
+            const jumlahRaw = document.getElementById('transaksi-jumlah').value;
+            
+            const jumlah = parseFloat(jumlahRaw.replace(/\./g, ""));
+
+            if (!jumlahRaw || isNaN(jumlah) || jumlah <= 0) {
+                alert("Harap masukkan jumlah nominal uang dengan benar!");
+                return;
+            }
+
+            const waktuHariIni = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            const waktuJam = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const gabungWaktu = waktuHariIni + " | " + waktuJam;
+
+            if (jenis === 'setor') {
+                totalSaldo += jumlah;
+                tambahKeBuku(ket, jumlah, 'setor', gabungWaktu);
+                bukaReceiptModal("Setor Tabungan", ket, jumlah, gabungWaktu);
+            } else if (jenis === 'tarik') {
+                if (jumlah > totalSaldo) {
+                    alert("Transaksi Gagal! Saldo TabunganKu tidak mencukupi untuk penarikan.");
+                    return;
+                }
+                totalSaldo -= jumlah;
+                tambahKeBuku(ket, jumlah, 'tarik', gabungWaktu);
+                bukaReceiptModal("Tarik Tabungan", ket, jumlah, gabungWaktu);
+            }
+
+            document.getElementById('transaksi-jumlah').value = '';
+            updateTampilanLayar();
+        }
+
+        function tambahKeBuku(keterangan, nominal, tipe, waktu) {
+            bukuTabungan.push({
+                keterangan: keterangan,
+                nominal: nominal,
+                tipe: tipe,
+                waktu: waktu
+            });
+        }
+
+        function bukaReceiptModal(title, keterangan, nominal, waktu) {
+            document.getElementById('r-type-text').innerText = title;
+            document.getElementById('r-keterangan').innerText = keterangan;
+            document.getElementById('r-nominal').innerText = formatRupiah(nominal);
+            document.getElementById('r-waktu').innerText = waktu;
+            
+            const rNominal = document.getElementById('r-nominal');
+            if(title === "Tarik Tabungan") {
+                rNominal.style.color = "var(--danger-color)";
+            } else {
+                rNominal.style.color = "var(--success-color)";
+            }
+
+            document.getElementById('receipt-modal').style.display = 'flex';
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').style.display = 'none';
+        }
+
+        function updateTampilanLayar() {
+            document.getElementById('saldo-display').innerText = formatRupiah(totalSaldo);
+            const listContainer = document.getElementById('riwayat-list');
+            
+            if (bukuTabungan.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; color: #b2bec3; padding: 50px 20px; font-size: 13px; background: white; border-radius: 20px; box-shadow: var(--shadow-sm);">
+                        <div style="font-size: 30px; margin-bottom: 10px;">📖</div>
+                        Belum ada riwayat aktivitas keuangan.
+                    </div>`;
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            
+            bukuTabungan.slice().reverse().forEach(item => {
+                const row = document.createElement('div');
+                row.className = `riwayat-item ${item.tipe}`;
+
+                const tanda = item.tipe === 'setor' ? '+' : '-';
+                const kelasWarna = item.tipe === 'setor' ? 'txt-masuk' : 'txt-keluar';
+
+                row.innerHTML = `
+                    <div class="item-info">
+                        <strong>${item.keterangan}</strong>
+                        <small>${item.waktu}</small>
+                    </div>
+                    <span class="${kelasWarna}">${tanda} ${formatRupiah(item.nominal)}</span>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
